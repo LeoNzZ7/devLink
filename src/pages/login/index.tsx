@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { Input } from "../../components/input"
 import { FormEvent, useState } from "react"
+import { auth } from "../../services/firebaseConnection"
 
 export const SingIn = () => {
     const [email, setEmail] = useState("")

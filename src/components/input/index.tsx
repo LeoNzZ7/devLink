@@ -17,7 +17,7 @@ export const Input = (props: InputProps) => {
                 />
                 <button
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-0 p-2 h-9 text-black bg-transparent text-white rounded-r outline-none"
+                    className="absolute right-0 p-2 h-9 text-black bg-transparent rounded-r outline-none"
                 >
                     {showPassword ? <IoEyeSharp /> : <FaEyeSlash />}
                 </button>

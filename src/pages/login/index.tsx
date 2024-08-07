@@ -1,16 +1,25 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Input } from "../../components/input"
 import { FormEvent, useState } from "react"
 import { auth } from "../../services/firebaseConnection"
+import { signInWithEmailAndPassword } from "firebase/auth"
 
 export const SingIn = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate();
 
-    function handleSubmit(e: FormEvent) {
+    async function handleSubmit(e: FormEvent) {
         e.preventDefault()
-
-        console.log(email, password + " entrando...")
+        if (email === "" && password === "") {
+            return;
+        }
+        await signInWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                navigate("/admin", { replace: true })
+            }).catch((error) => {
+                console.log("ERRO: " + error)
+            })
     }
 
     return (

@@ -1,15 +1,14 @@
-import { createBrowserRouter } from "react-router-dom"
-import { Home } from "./pages/home"
-import { Admin } from "./pages/admin"
-import { Networks } from "./pages/networks"
-import { SingIn } from "./pages/login"
-import { NotFound } from "./pages/notFound"
-import { Private } from "./routes/private"
+import { RouterProvider } from "react-router-dom"
+import { router } from "./routes/router"
+import { ToastContainer } from "react-toastify"
 
-export const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/admin", element: <Private><Admin /></Private> },
-  { path: "/admin/networks", element: <Networks /> },
-  { path: "/login", element: <SingIn /> },
-  { path: "*", element: <NotFound /> }
-])  
+const App = () => {
+  return (
+    <>
+      <ToastContainer autoClose={3000} limit={1} />
+      <RouterProvider router={router} />
+    </>
+  )
+}
+
+export default App

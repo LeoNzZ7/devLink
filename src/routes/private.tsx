@@ -2,6 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../services/firebaseConnection";
 import { Navigate } from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 interface PrivateProps {
     children: React.ReactElement
@@ -34,11 +35,13 @@ export const Private = ({ children }: PrivateProps) => {
     }, [])
 
     if (loading) {
-        return <div>Loading...</div>
+        return <LoadingSpinner />
     }
 
     if (!signed) {
+
         return <Navigate to="/login" />
+
     }
 
     return children;

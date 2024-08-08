@@ -1,7 +1,7 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { Header } from "../../components/Header"
 import { Input } from "../../components/Input"
-import { doc, setDoc } from "firebase/firestore"
+import { doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "../../services/firebaseConnection"
 import { Button } from "../../components/Button"
 
@@ -27,6 +27,23 @@ export const Networks = () => {
             console.log("Erro: " + error)
         })
     }
+
+    useEffect(() => {
+        async function loadingLinks() {
+            const docRef = doc(db, "social", "link");
+            await getDoc(docRef).then((snapshot) => {
+                if (snapshot.data !== undefined) {
+                    setFacebook(snapshot.data()?.facebook)
+                    setInstagram(snapshot.data()?.instagram)
+                    setYoutube(snapshot.data()?.youtube)
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            })
+        }
+
+        loadingLinks()
+    }, [])
 
     return (
         <div className="flex items-center flex-col min-h-screen pb-7 px-2" >

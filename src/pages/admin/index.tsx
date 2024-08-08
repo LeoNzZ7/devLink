@@ -4,6 +4,7 @@ import { Input } from "../../components/Input"
 import { FiTrash } from "react-icons/fi"
 import { db } from "../../services/firebaseConnection"
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore"
+import { Button } from "../../components/Button"
 
 interface LinkProps {
     id: string;
@@ -123,12 +124,7 @@ export const Admin = () => {
                     </div>
                 )}
 
-                <button
-                    type="submit"
-                    className="mb-7 bg-blue-600 h-9 rounded-md text-white font-medium gap-4 flex justify-center items-center"
-                >
-                    Cadastrar
-                </button>
+                <Button buttonType="submit" buttonText="Cadastrar" />
             </form>
 
             <h2 className="font-bold text-white mb-4 text-2xl">Meus links</h2>

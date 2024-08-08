@@ -3,6 +3,7 @@ import { Input } from "../../components/Input"
 import { FormEvent, useState } from "react"
 import { auth } from "../../services/firebaseConnection"
 import { signInWithEmailAndPassword } from "firebase/auth"
+import { Button } from "../../components/Button"
 
 export const SingIn = () => {
     const [email, setEmail] = useState("")
@@ -45,11 +46,7 @@ export const SingIn = () => {
                     onChange={e => setPassword(e.target.value)}
                 />
 
-                <button
-                    type="submit"
-                    className="bg-blue-600 h-9 rounded border-0 text-lg font-medium text-white" >
-                    Acessar
-                </button>
+                <Button buttonType="submit" buttonText="Acessar" />
             </form>
         </div>
     )

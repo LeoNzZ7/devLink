@@ -39,9 +39,7 @@ export const Private = ({ children }: PrivateProps) => {
     }
 
     if (!signed) {
-
         return <Navigate to="/login" replace={true} />
-
     }
 
     return children;

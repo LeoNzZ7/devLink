@@ -4,6 +4,7 @@ import { InputComponent } from "../../components/InputComponent"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "../../services/firebaseConnection"
 import { Button } from "../../components/Button"
+import { toast } from "react-toastify"
 
 export const Networks = () => {
     const [facebook, setFacebook] = useState("")
@@ -19,12 +20,12 @@ export const Networks = () => {
             instagram,
             youtube,
         }).then(() => {
-            console.log("Link salvo com sucesso!")
             setFacebook("")
             setInstagram("")
             setYoutube("")
-        }).catch((error) => {
-            console.log("Erro: " + error)
+            toast.success("Link salvo com sucesso!")
+        }).catch(() => {
+            toast.error("Falha ao salvar o link!");
         })
     }
 

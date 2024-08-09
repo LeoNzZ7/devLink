@@ -6,6 +6,7 @@ import { db } from "../../services/firebaseConnection"
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore"
 import { Button } from "../../components/Button"
 import { LinkProps } from "../../types/links.types"
+import { toast } from "react-toastify"
 
 export const Admin = () => {
     const [nameInput, setNameInput] = useState("")
@@ -43,7 +44,7 @@ export const Admin = () => {
         e.preventDefault();
 
         if (nameInput === "" || urlInput === "") {
-            alert("Preencha todos os campos")
+            toast.info("Preencha todos os campos")
             return;
         }
 
@@ -54,7 +55,7 @@ export const Admin = () => {
             backgroundColor: backgroundColorInput,
             createdAt: new Date()
         }).then(() => {
-            console.log("Cadastrado com sucesso")
+            toast.success("Link cadastrado com sucesso")
             setNameInput("")
             setUrlInput("")
         }).catch((error) => {
@@ -65,7 +66,7 @@ export const Admin = () => {
     async function handleDeleteLink(id: string) {
         const docRef = doc(db, "links", id)
         await deleteDoc(docRef).then(() => {
-            console.log("deletado com sucesso")
+            toast.info("deletado com sucesso")
         })
     }
 

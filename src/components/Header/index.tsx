@@ -2,10 +2,12 @@ import { BiLogOut } from "react-icons/bi"
 import { Link } from "react-router-dom"
 import { auth } from "../../services/firebaseConnection";
 import { signOut } from "firebase/auth"
+import { toast } from "react-toastify";
 
 export const Header = () => {
     async function HandleLogout() {
         await signOut(auth);
+        toast.info("Desconectado")
     }
 
     return (

@@ -9,8 +9,12 @@ export const Social = ({ children, url }: SocialProps) => {
     return (
         <a href={url}
             rel="noopener noreferrer"
-            target="_blank" >
+            target="_blank"
+            aria-disabled="true"
+            type=""
+            style={{ display: url === "" ? "none" : "flex" }}
+        >
             {children}
-        </a>
+        </a >
     )
 }

@@ -5,15 +5,7 @@ import { FiTrash } from "react-icons/fi"
 import { db } from "../../services/firebaseConnection"
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore"
 import { Button } from "../../components/Button"
-
-interface LinkProps {
-    id: string;
-    url: string;
-    name: string;
-    textColor: string;
-    createdAt: string;
-    backgroundColor: string;
-}
+import { LinkProps } from "../../types/links.types"
 
 export const Admin = () => {
     const [nameInput, setNameInput] = useState("")

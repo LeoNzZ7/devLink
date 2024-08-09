@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react"
 import { Header } from "../../components/Header"
-import { Input } from "../../components/Input"
+import { InputComponent } from "../../components/InputComponent"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "../../services/firebaseConnection"
 import { Button } from "../../components/Button"
@@ -52,21 +52,21 @@ export const Networks = () => {
 
             <form className="flex flex-col max-w-xl w-full" onSubmit={handleRegister} >
                 <label className="text-white font-medium my-2">Link do Facebook</label>
-                <Input
+                <InputComponent
                     type="url"
                     placeholder="Digite a url do seu perfil do Facebook..."
                     value={facebook}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFacebook(e.target.value)}
                 />
                 <label className="text-white font-medium my-2">Link do Instagram</label>
-                <Input
+                <InputComponent
                     type="url"
                     placeholder="Digite a url do seu perfil do Instagram.."
                     value={instagram}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInstagram(e.target.value)}
                 />
                 <label className="text-white font-medium my-2">Link do Youtube</label>
-                <Input
+                <InputComponent
                     type="url"
                     placeholder="Digite a url do seu canal do Youtube..."
                     value={youtube}

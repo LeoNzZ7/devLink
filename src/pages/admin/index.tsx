@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react"
 import { Header } from "../../components/Header"
-import { Input } from "../../components/Input"
+import { InputComponent } from "../../components/InputComponent"
 import { FiTrash } from "react-icons/fi"
 import { db } from "../../services/firebaseConnection"
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore"
@@ -74,13 +74,13 @@ export const Admin = () => {
             <Header />
             <form className="flex flex-col mt-8 mb-3 w-full max-w-xl" onSubmit={handleRegister} >
                 <label className="text-white font-medium my-2 ">Nome do link</label>
-                <Input
+                <InputComponent
                     type="text"
                     placeholder="Digite o nome do link..."
                     value={nameInput}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNameInput(e.target.value)}
                 />
-                <Input
+                <InputComponent
                     type="url"
                     placeholder="Digite a url..."
                     value={urlInput}

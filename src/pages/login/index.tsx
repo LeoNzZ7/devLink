@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { Input } from "../../components/Input"
+import { InputComponent } from "../../components/InputComponent"
 import { FormEvent, useState } from "react"
 import { auth } from "../../services/firebaseConnection"
 import { signInWithEmailAndPassword } from "firebase/auth"
@@ -33,13 +33,13 @@ export const SingIn = () => {
                 </h1>
             </Link>
             <form onSubmit={handleSubmit} className="w-full max-w-xl flex flex-col px-2" >
-                <Input
+                <InputComponent
                     type="email"
                     placeholder="Digite seu email"
                     value={email}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 />
-                <Input
+                <InputComponent
                     type="password"
                     placeholder="Digite sua senha"
                     value={password}

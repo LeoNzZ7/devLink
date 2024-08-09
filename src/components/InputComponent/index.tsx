@@ -4,7 +4,7 @@ import { IoEyeSharp } from "react-icons/io5";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> { }
 
-export const Input = (props: InputProps) => {
+export const InputComponent = (props: InputProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
     if (props.type === "password") {

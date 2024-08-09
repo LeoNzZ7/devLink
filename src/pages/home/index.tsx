@@ -4,7 +4,6 @@ import { collection, getDoc, getDocs, orderBy, query, doc } from "firebase/fires
 import { useEffect, useState } from "react"
 import { LinkProps } from "../../types/links.types"
 import { db } from "../../services/firebaseConnection"
-import LoadingSpinner from "../../components/LoadingSpinner"
 
 interface SocialLinksProps {
     youtube: string
@@ -65,7 +64,7 @@ export const Home = () => {
             <h1 className="md:text-4xl text-3xl font-bold text-white mt-20" >Leonardo Nunes Martinha</h1>
             <span className="text-gray-50 mb-5 mt-3" >Veja meus links 👇🏻</span>
             <main className="flex flex-col w-11/12 max-w-xl text-center" >
-                {!links ? <LoadingSpinner /> : links.map((item) => (
+                {links && links.map((item) => (
                     <section
                         key={item.id}
                         className="mb-4 w-full py-2 rounded-lg select-none transition-transform hover:scale-105"

@@ -78,13 +78,13 @@ export const Admin = () => {
                     type="text"
                     placeholder="Digite o nome do link..."
                     value={nameInput}
-                    onChange={e => setNameInput(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNameInput(e.target.value)}
                 />
                 <Input
                     type="url"
                     placeholder="Digite a url..."
                     value={urlInput}
-                    onChange={e => setUrlInput(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUrlInput(e.target.value)}
                 />
                 <section className="flex my-4 gap-5" >
                     <div className="flex gap-2" >
@@ -92,7 +92,7 @@ export const Admin = () => {
                         <input
                             type="color"
                             value={textColorInput}
-                            onChange={e => setTextColorInput(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTextColorInput(e.target.value)}
                         />
                     </div>
                     <div className="flex gap-2" >
@@ -100,7 +100,7 @@ export const Admin = () => {
                         <input
                             type="color"
                             value={backgroundColorInput}
-                            onChange={e => setBackgroundColorInput(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBackgroundColorInput(e.target.value)}
                         />
                     </div>
                 </section>

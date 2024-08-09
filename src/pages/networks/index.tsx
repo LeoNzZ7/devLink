@@ -56,21 +56,21 @@ export const Networks = () => {
                     type="url"
                     placeholder="Digite a url do seu perfil do Facebook..."
                     value={facebook}
-                    onChange={e => setFacebook(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFacebook(e.target.value)}
                 />
                 <label className="text-white font-medium my-2">Link do Instagram</label>
                 <Input
                     type="url"
                     placeholder="Digite a url do seu perfil do Instagram.."
                     value={instagram}
-                    onChange={e => setInstagram(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInstagram(e.target.value)}
                 />
                 <label className="text-white font-medium my-2">Link do Youtube</label>
                 <Input
                     type="url"
                     placeholder="Digite a url do seu canal do Youtube..."
                     value={youtube}
-                    onChange={e => setYoutube(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setYoutube(e.target.value)}
                 />
                 <Button buttonText="Salvar links" buttonType="submit" />
             </form>

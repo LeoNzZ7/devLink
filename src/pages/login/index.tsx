@@ -37,13 +37,13 @@ export const SingIn = () => {
                     type="email"
                     placeholder="Digite seu email"
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 />
                 <Input
                     type="password"
                     placeholder="Digite sua senha"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 />
 
                 <Button buttonType="submit" buttonText="Acessar" />

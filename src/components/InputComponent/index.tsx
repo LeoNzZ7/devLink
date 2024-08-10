@@ -14,6 +14,7 @@ export const InputComponent = (props: InputProps) => {
                     className="border-0 h-9 rounded-md outline-none px-2 mb-3 w-full"
                     {...props}
                     type={showPassword ? "text" : "password"}
+                    minLength={6}
                 />
                 <button
                     type="button"

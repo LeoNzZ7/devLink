@@ -1,28 +1,28 @@
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useContext, useEffect, useState } from "react"
 import { Header } from "../../components/Header"
 import { InputComponent } from "../../components/InputComponent"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "../../services/firebaseConnection"
 import { Button } from "../../components/Button"
 import { toast } from "react-toastify"
+import { UserContext } from "../../contexts/UserContext"
 
 export const Networks = () => {
     const [facebook, setFacebook] = useState("")
     const [instagram, setInstagram] = useState("");
     const [youtube, setYoutube] = useState("");
 
+    const { id } = useContext(UserContext)
 
     async function handleRegister(e: FormEvent) {
         e.preventDefault();
 
-        await setDoc(doc(db, "social", "link"), {
+        await setDoc(doc(db, "social", id), {
+            userId: id,
             facebook,
             instagram,
-            youtube,
+            youtube
         }).then(() => {
-            setFacebook("")
-            setInstagram("")
-            setYoutube("")
             toast.success("Link salvo com sucesso!")
         }).catch(() => {
             toast.error("Falha ao salvar o link!");
@@ -31,12 +31,12 @@ export const Networks = () => {
 
     useEffect(() => {
         async function loadingLinks() {
-            const docRef = doc(db, "social", "link");
+            const docRef = doc(db, "social", id);
             await getDoc(docRef).then((snapshot) => {
                 if (snapshot.data !== undefined) {
-                    setFacebook(snapshot.data()?.facebook)
-                    setInstagram(snapshot.data()?.instagram)
-                    setYoutube(snapshot.data()?.youtube)
+                    setFacebook(snapshot.data()?.facebook || "")
+                    setInstagram(snapshot.data()?.instagram || "")
+                    setYoutube(snapshot.data()?.youtube || "")
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);

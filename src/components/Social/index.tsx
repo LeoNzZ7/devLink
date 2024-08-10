@@ -6,6 +6,10 @@ interface SocialProps {
 }
 
 export const Social = ({ children, url }: SocialProps) => {
+    if (url === "") {
+        return null;
+    }
+
     return (
         <a href={url}
             rel="noopener noreferrer"

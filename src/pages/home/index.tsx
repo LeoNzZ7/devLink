@@ -1,9 +1,11 @@
 import { Social } from "../../components/Social"
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa"
-import { collection, getDoc, getDocs, orderBy, query, doc } from "firebase/firestore"
+import { collection, getDoc, getDocs, orderBy, query, doc, where } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { LinkProps } from "../../types/links.types"
 import { db } from "../../services/firebaseConnection"
+import { Link, Navigate, useParams } from "react-router-dom"
+import { Header } from "../../components/Header"
 
 interface SocialLinksProps {
     youtube: string
@@ -14,17 +16,21 @@ interface SocialLinksProps {
 export const Home = () => {
     const [links, setLinks] = useState<LinkProps[]>()
     const [socialLinks, setSocialLinks] = useState<SocialLinksProps>()
+    const [name, setName] = useState("")
+
+    const { id } = useParams()
 
     useEffect(() => {
         async function loadingLinks() {
             const linksRef = collection(db, "links");
-            const queryRef = query(linksRef, orderBy("createdAt", "asc"))
+            const queryRef = query(linksRef, where("userId", "==", `${id}`), orderBy("createdAt", "asc"))
 
             await getDocs(queryRef).then((snapshot) => {
                 const lista = [] as LinkProps[]
                 snapshot.forEach((doc) => {
                     lista.push({
                         id: doc.id,
+                        userId: doc.data().userId,
                         url: doc.data().url,
                         name: doc.data().name,
                         textColor: doc.data().textColor,
@@ -40,57 +46,91 @@ export const Home = () => {
         }
 
         loadingLinks()
-    }, [])
+    }, [id])
 
     useEffect(() => {
-        async function loadingSocialLinks() {
-            const docRef = doc(db, "social", "link")
+        async function loadingUserInfo() {
+            const docRef = doc(db, "usersInfo", id || "VBcwm0HQhYNWOizMwjit1OhdVS33")
             await getDoc(docRef).then((snapshot) => {
-                if (snapshot.data !== undefined) {
-                    setSocialLinks({
-                        youtube: snapshot.data()?.youtube,
-                        instagram: snapshot.data()?.instagram,
-                        facebook: snapshot.data()?.facebook,
-                    })
-                }
+                setName(snapshot.data()?.userName)
             })
         }
 
+        loadingUserInfo()
+    }, [id])
+
+    useEffect(() => {
+        async function loadingSocialLinks() {
+            if (!id) {
+                return;
+            }
+
+            const docRef = doc(db, "social", id || "VBcwm0HQhYNWOizMwjit1OhdVS33");
+            const snapshot = await getDoc(docRef);
+
+            if (snapshot.exists()) {
+                const data = snapshot.data();
+                setSocialLinks({
+                    youtube: data?.youtube || "",
+                    instagram: data?.instagram || "",
+                    facebook: data?.facebook || "",
+                });
+            }
+        }
+
         loadingSocialLinks()
-    }, [])
+    }, [id])
+
+    if (id === null || id === undefined) {
+        return <Navigate to={"/VBcwm0HQhYNWOizMwjit1OhdVS33"} />
+    }
 
     return (
-        <div className="w-full flex flex-col justify-center items-center py-4" >
-            <h1 className="md:text-4xl text-3xl font-bold text-white mt-20" >Leonardo Nunes Martinha</h1>
-            <span className="text-gray-50 mb-5 mt-3" >Veja meus links 👇🏻</span>
-            <main className="flex flex-col w-11/12 max-w-xl text-center" >
-                {links && links.map((item) => (
-                    <section
-                        key={item.id}
-                        className="mb-4 w-full py-2 rounded-lg select-none transition-transform hover:scale-105"
-                        style={{ backgroundColor: item.backgroundColor, color: item.textColor }}
-                    >
-                        <a href={item.url} target="_blank">
-                            <p className="text-base md:text-lg" >
-                                {item.name}
-                            </p>
-                        </a>
-                    </section>
-                ))}
-                {socialLinks && Object.keys(socialLinks).length > 0 && (
-                    <footer className="flex justify-center gap-3 my-4" >
-                        <Social url={socialLinks.facebook}>
-                            <FaFacebook size={35} color="#fff" />
-                        </Social>
-                        <Social url={socialLinks.instagram} >
-                            <FaInstagram size={35} color="#fff" />
-                        </Social>
-                        <Social url={socialLinks.youtube} >
-                            <FaYoutube size={35} color="#fff" />
-                        </Social>
-                    </footer>
-                )}
-            </main>
-        </div>
+        <>
+            <Header />
+            <div className="w-full flex flex-col justify-center items-center py-4" >
+                <h1 className="md:text-4xl text-3xl font-bold text-white mt-20" >{name}</h1>
+                <span className="text-gray-50 mb-5 mt-3" >Veja meus links 👇🏻</span>
+                <main className="flex flex-col w-11/12 max-w-xl text-center" >
+                    {links && links.map((item) => (
+                        <section
+                            key={item.id}
+                            className="mb-4 w-full py-2 rounded-lg select-none transition-transform hover:scale-105"
+                            style={{ backgroundColor: item.backgroundColor, color: item.textColor }}
+                        >
+                            <a href={item.url} target="_blank">
+                                <p className="text-base md:text-lg" >
+                                    {item.name}
+                                </p>
+                            </a>
+                        </section>
+                    ))}
+                    {socialLinks && Object.keys(socialLinks).length > 0 && (
+                        <div className="flex justify-center gap-3 my-4" >
+                            <Social url={socialLinks.facebook}>
+                                <FaFacebook size={35} color="#fff" />
+                            </Social>
+                            <Social url={socialLinks.instagram} >
+                                <FaInstagram size={35} color="#fff" />
+                            </Social>
+                            <Social url={socialLinks.youtube} >
+                                <FaYoutube size={35} color="#fff" />
+                            </Social>
+                        </div>
+                    )}
+                </main>
+                <section className="flex flex-col justify-center items-center" >
+                    <span className="text-white" >
+                        Deseja também cadastrar seus links?
+                    </span>
+                    <Link to={`/singUp`}>
+                        <span className="text-blue-800" >Crie uma conta!</span>
+                    </Link>
+                </section>
+                <footer className="w-full flex justify-center items-center py-4" >
+                    <p className="text-gray-50 text-sm" >Desenvolvido com <span className="text-red-500"> ❤️ </span> por Leonardo Nunes Martinha</p>
+                </footer>
+            </div >
+        </>
     )
 }

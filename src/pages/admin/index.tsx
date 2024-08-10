@@ -1,12 +1,13 @@
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useContext, useEffect, useState } from "react"
 import { Header } from "../../components/Header"
 import { InputComponent } from "../../components/InputComponent"
 import { FiTrash } from "react-icons/fi"
 import { db } from "../../services/firebaseConnection"
-import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from "firebase/firestore"
 import { Button } from "../../components/Button"
 import { LinkProps } from "../../types/links.types"
 import { toast } from "react-toastify"
+import { UserContext } from "../../contexts/UserContext"
 
 export const Admin = () => {
     const [nameInput, setNameInput] = useState("")
@@ -14,11 +15,13 @@ export const Admin = () => {
     const [textColorInput, setTextColorInput] = useState("#FFFFFF")
     const [backgroundColorInput, setBackgroundColorInput] = useState("#00FF")
 
+    const { id } = useContext(UserContext)
+
     const [links, setLinks] = useState<LinkProps[]>([])
 
     useEffect(() => {
         const linksRef = collection(db, "links")
-        const queryRef = query(linksRef, orderBy("createdAt", "asc"));
+        const queryRef = query(linksRef, where("userId", "==", `${id}`), orderBy("createdAt", "asc"));
 
         const unSub = onSnapshot(queryRef, (snapshot) => {
             const lista = [] as LinkProps[]
@@ -26,6 +29,7 @@ export const Admin = () => {
             snapshot.forEach((doc) => {
                 lista.push({
                     id: doc.id,
+                    userId: doc.data().userId,
                     url: doc.data().url,
                     name: doc.data().name,
                     textColor: doc.data().textColor,
@@ -50,6 +54,7 @@ export const Admin = () => {
 
         await addDoc(collection(db, "links"), {
             name: nameInput,
+            userId: id,
             url: urlInput,
             textColor: textColorInput,
             backgroundColor: backgroundColorInput,

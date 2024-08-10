@@ -1,6 +1,6 @@
 # DevLink
 
-DevLink é uma plataforma inspirada no Linktree que permite aos usuários criar e gerenciar uma página personalizada com links para suas redes sociais e outros conteúdos relevantes.
+DevLink é uma plataforma inspirada no Linktree que permite aos usuários criar e gerenciar uma página personalizada com links para suas redes sociais e outros conteúdos relevantes. Agora, com nossa mais recente atualização, qualquer usuário pode criar sua própria conta e exibir seus links personalizados para o mundo!
 
 ## Características
 
@@ -8,6 +8,8 @@ DevLink é uma plataforma inspirada no Linktree que permite aos usuários criar 
 - Integração com redes sociais
 - Interface responsiva e amigável
 - Autenticação de usuários
+- Criação de conta para qualquer usuário
+- Exibição pública de links personalizados
 
 ## Tecnologias Utilizadas
 
@@ -21,7 +23,7 @@ DevLink é uma plataforma inspirada no Linktree que permite aos usuários criar 
 
 O projeto utiliza variáveis de ambiente para configuração. Certifique-se de configurar as seguintes variáveis:
 
-```
+```bash
 VITE_API_KEY=sua_api_key
 VITE_AUTH_DOMAIN=seu_auth_domain
 VITE_PROJECT_ID=seu_project_id
@@ -46,10 +48,18 @@ npm install
 npm run dev
 ```
 
+## Como Usar
+
+1. Crie sua conta na plataforma DevLink
+2. Faça login com suas credenciais
+3. Adicione seus links personalizados
+4. Personalize sua página conforme desejado
+5. Compartilhe sua página DevLink com o mundo!
+
 ## Autor
 
 Leonardo Nunes Martinha
 
 ## Contato
 
-Para mais informações, entre em contato através do email: [leonardomartinha.dev@gmail.com](leonardomartinha.dev@gmail.com)
+Para mais informações, entre em contato através do email: [leonardomartinha.dev@gmail.com](mailto:leonardomartinha.dev@gmail.com)
